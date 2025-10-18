@@ -9,8 +9,8 @@ const ConnectDB = require("./db/connect")
 
 app.use(Express.json())
 app.use('/api/user' , UserRouter)
-app.use('/api/news' ,AuthMiddleware, NewsRouter)
-
+app.use('/api/news' , NewsRouter)
+// AuthMiddleware
 app.listen(3000 , ()=>{
     try{
     // ConnectDB(process.env.MONGO_URI)
