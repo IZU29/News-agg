@@ -2,15 +2,15 @@ require('dotenv').config()
 
 const Express = require('express')
 const app = Express()
-const UserRouter = require("./routes/user")
+const UserRouter = require("./routes/auth")
 const NewsRouter = require("./routes/news")
 const AuthMiddleware = require("./middleware/auth")
 const ConnectDB = require("./db/connect")
 
 app.use(Express.json())
-app.use('/api/user' , UserRouter)
-app.use('/api/news' , NewsRouter)
-// AuthMiddleware
+app.use('/api/' , UserRouter)
+app.use('/api/news' ,AuthMiddleware, NewsRouter)
+// 
 app.listen(3000 , ()=>{
     try{
     // ConnectDB(process.env.MONGO_URI)
