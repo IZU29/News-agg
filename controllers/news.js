@@ -5,7 +5,7 @@ const getNews = async (req , res) => {
     try{
         const NewsApiResource = await getNewsApi("us") 
         const GuardianResource = await getGuardian()
-        res.status(200).json({NewsApi : NewsApiResource , Guardian : GuardianResource})
+        res.status(200).json({NewsApi : NewsApiResource})
         // console.log(req.user)
     }
     catch(error){
@@ -17,7 +17,13 @@ const getSingleNews = async (req , res) => {
     res.send("This is the Single News !!!")
 }
 
+
+const getSearchNews = () => {
+    console.log("The News Is searching !!!")
+}
+
 module.exports = {
     getNews, 
-    getSingleNews
+    getSingleNews,
+    getSearchNews
 }
