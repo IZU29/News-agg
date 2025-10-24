@@ -3,7 +3,8 @@ const getGuardian = require('../api/Guardian')
 
 const getNews = async (req , res) => {
     try{
-        const NewsApiResource = await getNewsApi("us") 
+        const { data } = req.body
+        const NewsApiResource = await getNewsApi("us" , data) 
         const GuardianResource = await getGuardian()
         res.status(200).json({NewsApi : NewsApiResource})
         // console.log(req.user)
