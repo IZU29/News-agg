@@ -9,11 +9,11 @@ const ConnectDB = require("./db/connect")
 
 app.use(Express.json())
 app.use('/api/' , UserRouter)
-app.use('/api/news' ,AuthMiddleware, NewsRouter)
-// 
+// app.use('/api/news' ,AuthMiddleware, NewsRouter)
+app.use('/api/news' , NewsRouter)
 app.listen(3000 , ()=>{
     try{
-    // ConnectDB(process.env.MONGO_URI)
+    ConnectDB(process.env.MONGO_URI)
     console.log(`Server Is Listening on Port ${3000}`)
 }
 catch(error){

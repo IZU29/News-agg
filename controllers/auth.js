@@ -10,13 +10,14 @@ const register = async (req , res) => {
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(password , salt)
     const newUser = {...req.body , password : hashPassword}
+    // console.log('Hmmm...')
     const user = await User.create({ ...newUser })
     const token = jwt.sign({ userId : user._id ,  name : user.username } , process.env.JWTSECRET , { expiresIn : '30d'})
     // res.send("Registering User Here !!!")
     res.status(200).json({name : user.username , token})
 }
 catch(error){
-    res.status(500).json({msg : "Something Went Wrong Try Again !!!"})
+    res.status(500).json({msg : "Something Went Wrong Try Again with register !!!" , error: error})
 }
     // console.log(req.body)
 }

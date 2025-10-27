@@ -1,10 +1,15 @@
-const getNewsApi = require('../api/NewsApi')
+const {getHeadlines , getNewsbySource} = require('../api/NewsApi')
 const getGuardian = require('../api/Guardian')
 
 const getNews = async (req , res) => {
     try{
-        const { data } = req.body
-        const NewsApiResource = await getNewsApi("us" , data) 
+        const { country } = req.query
+        const { category } = req.body
+        console.log(country)
+        console.log(category)
+
+        // const NewsApiResource = await getHeadlines(country , data) 
+        const NewsApiResource = await getHeadlines(country , category) 
         const GuardianResource = await getGuardian()
         res.status(200).json({NewsApi : NewsApiResource})
         // console.log(req.user)
