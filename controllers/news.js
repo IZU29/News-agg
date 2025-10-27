@@ -5,9 +5,7 @@ const getNews = async (req , res) => {
     try{
         const { country } = req.query
         const { category } = req.body
-        console.log(country)
-        console.log(category)
-
+        console.log(req.user)
         // const NewsApiResource = await getHeadlines(country , data) 
         const NewsApiResource = await getHeadlines(country , category) 
         const GuardianResource = await getGuardian()
