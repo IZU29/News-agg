@@ -10,14 +10,14 @@ const register = async (req , res) => {
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(password , salt)
     const newUser = {...req.body , password : hashPassword}
-    // console.log('Hmmm...')
     const user = await User.create({ ...newUser })
-    const token = jwt.sign({ userId : user._id ,  name : user.username } , process.env.JWTSECRET , { expiresIn : '30d'})
+    const token = jwt.sign({ userId : user._id ,  name : user.username } , process.env.JWT_SECRET , { expiresIn : '30d'})
+    // console.log('Hmmm...')
     // res.send("Registering User Here !!!")
     res.status(200).json({name : user.username , token})
 }
 catch(error){
-    res.status(500).json({msg : "Something Went Wrong Try Again with register !!!" , error: error})
+    return res.status(500).json({msg : "Something Went Wrong Try Again with register !!!" , error: error})
 }
     // console.log(req.body)
 }
@@ -32,7 +32,7 @@ const login = async (req , res) => {
     if(!bcryptBool){
         res.status(401).json({msg : "Incorrect Password was Input !!!"})
     }
-    const token = jwt.sign({ userId : user._id ,  name : user.username } , process.env.JWTSECRET , { expiresIn : '30d'})
+    const token = jwt.sign({ userId : user._id ,  name : user.username } , process.env.JWT_SECRET , { expiresIn : '30d'})
     res.status(200).json({name : user.username , token})
 }
 catch(error){

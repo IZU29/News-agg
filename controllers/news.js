@@ -3,8 +3,8 @@ const getGuardian = require('../api/Guardian')
 
 const getNews = async (req , res) => {
     try{
-        const { country } = req.query
-        const { category } = req.body
+        // const {  } = req.query
+        const { country , category } = req.body
         console.log(req.user)
         // const NewsApiResource = await getHeadlines(country , data) 
         const NewsApiResource = await getHeadlines(country , category) 
@@ -18,12 +18,15 @@ const getNews = async (req , res) => {
 }
 
 const getSingleNews = async (req , res) => {
+    console.log(req.params)
     res.send("This is the Single News !!!")
 }
 
 
-const getSearchNews = () => {
-    console.log("The News Is searching !!!")
+const getSearchNews = async (req , res) => {
+    const { q } = req.query
+    console.log(q)
+    res.send("The News Is searching !!!")
 }
 
 module.exports = {
