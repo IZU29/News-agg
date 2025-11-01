@@ -40,8 +40,22 @@ const getSearchNews = async (req , res) => {
         }
     //  SearchedValue.push({}...getNewsApi[category[i]]])
     }
+    const searchterm = q.toLowerCase()
+    const lowerterm = searchterm
+    // .toLowerCase()
+    const results = []
+    for(const article of allArticles){
+    //    const {title , description} = article
+       const title = article.title.toLowerCase()
+       const description = article.description
+    //    console.log(description)
+       if(title.includes(searchterm)||(description?description.includes(searchterm):false)){
+        // console.log(article)
+        results.push(article)
+       }
+    }
     
-    res.status(200).json(allArticles)
+    res.status(200).json(results)
 }
 
 module.exports = {
