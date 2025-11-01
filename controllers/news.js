@@ -25,8 +25,23 @@ const getSingleNews = async (req , res) => {
 
 const getSearchNews = async (req , res) => {
     const { q } = req.query
+    const { country , category } = req.body
     console.log(q)
-    res.send("The News Is searching !!!")
+    // get NewsApi
+    const getCategoryNews = await getHeadlines(country , category)
+    // filter search in each category
+    const allArticles =  []
+    for(const category in getCategoryNews){
+        if(getCategoryNews.hasOwnProperty(category)){
+            const articles = getCategoryNews[category]
+            for(const article of articles){
+                allArticles.push({...article , category})
+            }
+        }
+    //  SearchedValue.push({}...getNewsApi[category[i]]])
+    }
+    
+    res.status(200).json(allArticles)
 }
 
 module.exports = {
