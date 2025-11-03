@@ -1,11 +1,14 @@
 const {getHeadlines , getNewsbySource} = require('../api/NewsApi')
 const getGuardian = require('../api/Guardian')
-
+const User = require('../models/user')
 const getNews = async (req , res) => {
     try{
         // const {  } = req.query
-        const { country , category } = req.body
+        const { country } = req.body
+        const {userId , name} = req.user
         console.log(req.user)
+        const user = await User.findById(userId)
+        const category = user.preferences.Categories
         // const NewsApiResource = await getHeadlines(country , data) 
         const NewsApiResource = await getHeadlines(country , category) 
         const GuardianResource = await getGuardian()
@@ -13,7 +16,7 @@ const getNews = async (req , res) => {
         // console.log(req.user)
     }
     catch(error){
-        res.status(500).json({ msg : "Something went wrong with the Api resource !!!"})
+        res.status(500).json({ msg : "Something went wrong with the Api resource !!!" , error : error})
     }
 }
 

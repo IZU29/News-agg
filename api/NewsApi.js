@@ -1,15 +1,12 @@
 const axios = require('axios')
 
 const getHeadlines = async (country , category) => {
-    const Categories = category
 // will collect array parameter of Categories
     const params = {
         country ,
         apiKey : 'c2179c00257249fa9b18aa05b5cca068', 
         category
     }
-    
-    
     try{
         // let data;
         const categorizedNews = {}

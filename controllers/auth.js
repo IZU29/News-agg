@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs')
 const register = async (req , res) => {
     // console.log()
     try {
-    const {username , email , password} = req.body
+    const {username , email , password , preferences} = req.body
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(password , salt)
     const newUser = {...req.body , password : hashPassword}

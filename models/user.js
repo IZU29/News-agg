@@ -16,8 +16,8 @@ const UserSchema = new mongoose.Schema({
         type : String,
         required : [true , "Please Provide Password"]
     },
-    prefrences : {
-        sources : [String],
+    preferences : {
+        Sources : [String],
         Categories : [String]
     },
 
