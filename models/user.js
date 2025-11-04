@@ -21,7 +21,9 @@ const UserSchema = new mongoose.Schema({
         Categories : [String]
     },
 
-    savedArticles:[]
+    savedArticles:[{
+        type : Object
+    }]
 
 })
 

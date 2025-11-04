@@ -27,12 +27,16 @@ const getSingleNews = async (req , res) => {
 
 
 const getSearchNews = async (req , res) => {
+    try{
     const { q } = req.query
-    const { country , category } = req.body
+    const { country } = req.body
     console.log(q)
     // get NewsApi
     const getCategoryNews = await getHeadlines(country , category)
     // filter search in each category
+    const {userId , name} = req.user
+    const user = await User.findById(userId)
+    const category = user.preferences.Categories
     const allArticles =  []
     for(const category in getCategoryNews){
         if(getCategoryNews.hasOwnProperty(category)){
@@ -60,9 +64,33 @@ const getSearchNews = async (req , res) => {
     
     res.status(200).json(results)
 }
+catch(error){
+    res.status(500).json({ msg : "Something went wrong with the Api resource !!!" , error : error})
+}
+}
+const saveNews = async (req , res) => {
+    try{
+    const SavedNews = {...req.body}
+    const { userId , name} = req.user
+    const user = await User.findByIdAndUpdate(userId , { $push: {savedArticles : SavedNews} } , { new : true , runValidators : true })
+    res.status(200).json({status: "Saved" , data : user.savedArticles })
+    // SavedNewsArray.push(user.preferences.Save)
+    }
+    catch(error){
+        res.status(500).json({msg : "Somethin is wrong with BookMark" , err : error})
+    }
+}
 
+const deleteSaveNews = (req , res) => {
+    
+}
+
+const getSaveNews = (req , res) => {
+    
+}
 module.exports = {
     getNews, 
     getSingleNews,
-    getSearchNews
+    getSearchNews,
+    saveNews
 }
