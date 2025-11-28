@@ -4,7 +4,8 @@ const User = require('../models/user')
 const getNews = async (req , res) => {
     try{
         // const {  } = req.query
-        const { country } = req.body
+        // The country variable is set as "us"
+        const country = "us"
         const {userId , name} = req.user
         console.log(req.user)
         const user = await User.findById(userId)
