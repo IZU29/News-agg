@@ -29,15 +29,16 @@ const getSingleNews = async (req , res) => {
 
 const getSearchNews = async (req , res) => {
     try{
-    const { q } = req.query
-    const { country } = req.body
-    console.log(q)
+    const { search } = req.query
+    console.log(search)
+    const { country } = "us"
+    // console.log(q)
     // get NewsApi
-    const getCategoryNews = await getHeadlines(country , category)
     // filter search in each category
     const {userId , name} = req.user
     const user = await User.findById(userId)
     const category = user.preferences.Categories
+    const getCategoryNews = await getHeadlines(country , category)
     const allArticles =  []
     for(const category in getCategoryNews){
         if(getCategoryNews.hasOwnProperty(category)){
@@ -48,7 +49,7 @@ const getSearchNews = async (req , res) => {
         }
     //  SearchedValue.push({}...getNewsApi[category[i]]])
     }
-    const searchterm = q.toLowerCase()
+    const searchterm = search.toLowerCase()
     const lowerterm = searchterm
     // .toLowerCase()
     const results = []
