@@ -1,11 +1,12 @@
 const axios = require('axios')
 
-const getHeadlines = async (country , category) => {
+const getHeadlines = async (country , category ,page) => {
 // will collect array parameter of Categories
     const params = {
         country ,
         apiKey : 'c2179c00257249fa9b18aa05b5cca068', 
-        category
+        category,
+        page
     }
     try{
         // let data;

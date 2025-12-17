@@ -1,6 +1,11 @@
-// import axios from 'axios'
+const getGuardian = require('../api/Guardian')
+const getNewsAP = require('../api/NewsAP')
 
+const NewsFormatter = async () => {
+    console.log('News Formatter dey work shaa !!!')
+    
+}
 
-// const getGuardian = () => {
-//     // const response 
-// }
+module.exports = {
+    NewsFormatter
+}
