@@ -11,7 +11,7 @@ const getNewsAP = async (country , category ,page) => {
     try{
         // let data;
         const categorizedNews = {}
-        const { data } = await axios.get('https://newsapi.org/v2/top-headlines/' , { params : {...params  , category : categoryVal} })
+        const { data } = await axios.get('https://newsapi.org/v2/top-headlines/' , { params : {...params } })
         
         return data
     }
