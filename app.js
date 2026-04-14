@@ -7,11 +7,14 @@ const UserRouter = require("./routes/auth")
 const NewsRouter = require("./routes/news")
 const AuthMiddleware = require("./middleware/auth")
 const ConnectDB = require("./db/connect")
+const ErrorHandler = require('./middleware/errorHandler')
+const errorHandler = require('./middleware/errorHandler')
 
 app.use(Express.json())
 app.use(cors())
 app.use('/api/' , UserRouter)
 app.use('/api/news' ,AuthMiddleware, NewsRouter)
+app.use(errorHandler);
 // app.use('/api/news' , NewsRouter)
 app.listen(3000 , ()=>{
     try{

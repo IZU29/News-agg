@@ -1,13 +1,15 @@
 require('dotenv').config()
+const AppError = require("../utils/AppError");
 
 const jwt = require("jsonwebtoken")
 
 const authenticate = async (req , res , next) => {
     try{
     const headers = req.headers.authorization
+
     if (!headers || !headers.startsWith('Bearer ')){
-        // console.log(headers)
-        res.status(401).json({ msg : "Unuthenticated Token !!!"})
+        // No token provided
+        throw new AppError("There is no web token provided", 401);
     }
     const token = headers.split(' ')[1]
     const decoded = await jwt.verify(token , process.env.JWT_SECRET)
@@ -15,8 +17,8 @@ const authenticate = async (req , res , next) => {
     next()
 }
     catch(error){
-        
-        res.send("Error Occured During the Authrntication Of User")
+       // Error occured with JWT
+       throw new AppError("Invalid webtoken ", 401);
 }
 }
 

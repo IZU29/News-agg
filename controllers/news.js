@@ -2,20 +2,21 @@ const {getHeadlines , getNewsbySource} = require('../api/NewsApi')
 const getGuardian = require('../api/Guardian')
 const {NewsFormatter} = require('../api/NewsFormatter')
 const User = require('../models/user')
+const AppError = require("../utils/AppError");
+
 
 const getNews = async (req , res) => {
     try{
-        // const {  } = req.query
-        // The country variable is set as "us"
         const country = "us"
         const {userId , name} = req.user
         const {page}= req.query
-        console.log(req.user)
         const user = await User.findById(userId)
+        console.log(req.user)
         const category = user.preferences.Categories
         // const NewsApiResource = await getHeadlines(country , data) 
         const NewsApiResource = await getHeadlines(country , category ,page) 
-        const GuardianResource = await getGuardian()
+        // const GuardianResource = await getGuardian()
+        console.log(`${"not working"}`)
         res.status(200).json({NewsApi : NewsApiResource})
         // console.log(req.user)
     }
@@ -82,7 +83,7 @@ const saveNews = async (req , res) => {
     // SavedNewsArray.push(user.preferences.Save)
     }
     catch(error){
-        res.status(500).json({msg : "Somethin is wrong with BookMark" , err : error})
+        res.status(500).json({msg : "Something is wrong with BookMark" , err : error})
     }
 }
 

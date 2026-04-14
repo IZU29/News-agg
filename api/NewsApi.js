@@ -14,7 +14,8 @@ const getHeadlines = async (country , category ,page) => {
         
         for(categoryVal of category){
             
-            const { data } = await axios.get('https://newsapi.org/v2/top-headlines/' , { params : {...params  , category : categoryVal} })
+            const { data } = await axios.get('https://newsapi.org/v2/top-headlines/' , { params :{ ...params}  , category : categoryVal })
+            
             categorizedNews[categoryVal] = data.articles.map(article => (
                     {source : article.source.name, id: article.source.id , author : article.author , title : article.title , description : article.description , url : article.url, urlToImage : article.urlToImage , publishedAt : article.publishedAt }
                 ))
@@ -27,6 +28,8 @@ const getHeadlines = async (country , category ,page) => {
         console.log('Something Went Wrong !!!')
     }
 }
+
+
     const getNewsbySource = async (country , source) =>{
         const params = {
             source,
